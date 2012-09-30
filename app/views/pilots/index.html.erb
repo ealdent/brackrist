@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <ul class="breadcrumb">
+        <% if @corporation %>
+          <li><%= link_to 'Home', pilots_url %> <span class="divider">&raquo;</span></li>
+          <li class="Active"><%= @corporation.name %></li>
+        <% elsif !params[:q].blank? %>
+          <li><%= link_to 'Home', pilots_url %> <span class="divider">&raquo;</span></li>
+          <li class="Active"><%= params[:q] %></li>
+        <% else %>
+          <li class="active"><%= link_to 'Home', pilots_url %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="span2">Pilot Name</th>
+            <th class="span2">Blacklisting Corp</th>
+            <th class="span3">Date</th>
+            <th class="span5">Reason</th>
+          </tr>
+        </thead>
+
+        <% @pilots.each do |pilot| %>
+          <tr>
+            <td>
+              <%= link_to pilot.name, pilot_url(pilot) %>
+            </td>
+            <td>
+              <% if pilot.corporation %>
+                <%= link_to pilot.corporation.name, pilots_url(:corporation_id => pilot.corporation_id) %>
+              <% end %>
+            </td>
+            <td>
+              <%= pilot.created_at %>
+            </td>
+            <td>
+              <%= pilot.reason %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+
+      <% if @total_pages > 1 %>
+        <div class="pagination pagination-centered">
+          <ul>
+          <% @total_pages.times do |i| %>
+            <li class="<%= @current_page == i + 1 ? 'active' : 'disabled' %>"><%= link_to (i + 1).to_s, pilots_url(params.merge(:page => i + 1)) %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

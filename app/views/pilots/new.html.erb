@@ -1,0 +1,26 @@
+<%= form_for @pilot, :url => { :action => 'create' }, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <label class="control-label" for="pilot_name">Pilot Name:</label>
+    <div class="controls">
+      <%= f.text_field :name, :placeholder => 'Pilot Name' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="corporation_name">Blacklisting Corporation:</label>
+    <div class="controls">
+      <input type="text" placeholder="Corporation Name" name="corporation_name" id="corporation_name" data-provide="typeahead" data-items="6" data-source="<%= Corporation.all.map(&:name).inspect %>" autocomplete="off">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="pilot_name">Reason:</label>
+    <div class="controls">
+      <%= f.text_area :reason, :placeholder => 'Reason for blacklisting...', :rows => 8 %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Blacklist Pilot</button>
+      <%= link_to 'Cancel', pilots_url, :class => 'btn btn-danger' %>
+    </div>
+  </div>
+<% end %>

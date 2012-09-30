@@ -1,0 +1,36 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', pilots_url %> <span class="divider">&raquo;</span></li>
+  <li class="Active"><%= @pilot.name %></li>
+</ul>
+<div class="page-header span12">
+  <div class="span4">
+    <h2><%= @pilot.name %></h2>
+  </div>
+  <div class="offset5 span2" style="text-align: right">
+    <%= link_to 'Add Blacklisting', new_pilot_url, :class => "btn btn-primary" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span2 pilot-show"><h4>Blacklisting Corp:</h4></div>
+  <div class="span10"><%= @pilot.corporation.name if @pilot.corporation %></div>
+</div>
+<div class="row">
+  <div class="span2 pilot-show"><h4>Blacklisted By:</h4></div>
+  <div class="span10"><%= @pilot.user.login if @pilot.user %></div>
+</div>
+<div class="row">
+  <div class="span2 pilot-show"><h4>Blacklisting Date:</h4></div>
+  <div class="span10"><%= @pilot.created_at.to_s(:db) %></div>
+</div>
+<div class="row">
+  <div class="span2 pilot-show"><h4>Reason:</h4></div>
+  <div class="span10">
+    <%= @pilot.reason %>
+  </div>
+</div>
+<div class="row">
+  <div class="span2 pilot-show"><h4>Known Alts:</h4></div>
+  <div class="span10">
+    Coming Soon.&trade;
+  </div>
+</div>

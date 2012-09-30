@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>S2N Blacklist Tool</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner" style="padding-top: 15px;">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="span4">
+            <a href="<%= pilots_url %>" target="_top" class="brand"><img src="/nulli_01.png" height="22"> Blacklist Tool</a>
+            <ul class="nav">
+              <% if @current_user %>
+                <li>
+                  <%= link_to "Add", new_pilot_url %>
+                </li>
+                <li>
+                  <%= link_to 'Logout', logout_url %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="offset3 span4" style="text-align: right; margin-left: 320px;">
+            <%= form_tag pilots_url, :method => 'get' do %>
+              <input type="text" class="input-medium search-query" name="q" id="q">
+              <button type="submit" class="btn btn-small">Search</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" style="padding-top: 100px;">
+<%= yield %>
+</div>
+
+</body>
+</html>
