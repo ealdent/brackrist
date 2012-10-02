@@ -1,6 +1,8 @@
 class PilotsController < ApplicationController
   PILOTS_PER_PAGE = 15
 
+  before_filter :authenticate!, :only => [:new, :create, :update]
+
   def index
     @pilots = if params[:q]
       Pilot.where(['name ILIKE ?', "%%#{params[:q]}%%"])
@@ -32,14 +34,14 @@ class PilotsController < ApplicationController
       end
       format.csv do
         @pilots.order('LOWER(name) ASC')
-        headers['Content-Disposition'] = 'attachment; filename="pilots.csv"'
+        headers['Content-Disposition'] = 'attachment; filename="pilots-#{Digest::SHA1.hexdigest(rand.to_s)[0..8]}.csv"'
         render :layout => false
       end
     end
   end
 
   def show
-    @pilot = Pilot.find(params[:id], :order => "name ASC")
+    @pilot = Pilot.find(params[:id])
   end
 
   def new
@@ -54,5 +56,14 @@ class PilotsController < ApplicationController
       @pilot.save!
     end
     redirect_to pilots_url
+  end
+
+  def edit
+    @pilot = Pilot.find(params[:id])
+  end
+
+  def update
+    @pilot = Pilot.find(params[:id])
+    @pilot.update_attributes!(params[:pilot])
   end
 end
