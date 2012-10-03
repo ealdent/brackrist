@@ -65,5 +65,20 @@ class PilotsController < ApplicationController
   def update
     @pilot = Pilot.find(params[:id])
     @pilot.update_attributes!(params[:pilot])
+
+    redirect_to pilot_url(@pilot)
+  end
+
+  def destroy
+    begin
+      @pilot = Pilot.find(params[:id])
+      n = @pilot.name
+      @pilot.destroy
+      flash[:notice] = "#{n} has been successfully removed from the blacklist."
+      redirect_to pilots_url
+    rescue => ex
+      flash[:error] = "Pilot could not be removed from the blacklist: #{ex}"
+      redirect_to pilots_url
+    end
   end
 end

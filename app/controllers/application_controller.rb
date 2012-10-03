@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_url unless current_user
   end
 
+  def permits(access_level)
+    current_user && current_user.has_access?(access_level)
+  end
+
   def record_user_activity
     return true unless current_user
     current_user.record_login(request)

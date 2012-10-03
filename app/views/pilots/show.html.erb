@@ -6,9 +6,12 @@
   <div class="span4">
     <h2><%= @pilot.name %></h2>
   </div>
-  <div class="offset5 span2" style="text-align: right">
-    <%= link_to 'Add Blacklisting', new_pilot_url, :class => "btn btn-primary" %>
-  </div>
+  <% if current_user && (current_user.has_access?(User::AccessLevels::EDIT_USER) || current_user.has_access?(User::AccessLevels::DELETE_USER) ) %>
+    <div class="offset3 span4" style="text-align: right">
+      <%= link_to 'Edit', edit_pilot_url(@pilot), :class => 'btn btn-primary' if current_user.has_access?(User::AccessLevels::EDIT_USER) %>
+      <%= link_to 'Remove', pilot_url(@pilot), :class => 'btn btn-danger', :method => :delete if current_user.has_access?(User::AccessLevels::DELETE_USER) %>
+    </div>
+  <% end %>
 </div>
 <div class="row">
   <div class="span2 pilot-show"><h4>Blacklisting Corp:</h4></div>

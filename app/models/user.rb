@@ -1,9 +1,24 @@
 class User < ActiveRecord::Base
-  attr_accessible :login, :password
+  module AccessLevels
+    VIEW_USER       = 0
+    EDIT_USER       = 1
+    DELETE_USER     = 2
+    ADD_USER        = 4
+
+    HIGH_COMMAND    = 7
+    LEADERSHIP      = 4
+    ADMIN           = 65535
+  end
+
+  attr_accessible :login, :password, :access_level
 
   has_many :user_logins
 
   before_create :encrypt_password
+
+  def has_access?(requesting_access_level)
+    (access_level & requesting_access_level).to_i > 0
+  end
 
   def encrypt_password
     self.salt = Digest::SHA1.hexdigest("#{Time.now.utc.to_s} Salty meaty tasty #{rand} nulli secunda #{self.password} #{rand}")

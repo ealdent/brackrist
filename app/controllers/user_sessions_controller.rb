@@ -8,16 +8,17 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      Rails.logger.debug "********** WHOOP!"
+      flash[:notice] = 'Successfully logged in.'
       redirect_to pilots_url
     else
-      Rails.logger.debug "********** DAFUQ!"
+      flash[:error] = "Spai!  #{@user_session.errors.full_messages.join(', ').downcase.capitalize}"
       render :action => :new
     end
   end
 
   def destroy
     current_user_session.destroy
-    redirect_to new_user_session_url
+    flash[:notice] = 'Successfully logged out.'
+    redirect_to pilots_url
   end
 end
