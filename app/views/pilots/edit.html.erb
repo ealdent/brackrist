@@ -12,9 +12,15 @@
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="pilot_name">Reason:</label>
+    <label class="control-label" for="pilot_reason">Reason:</label>
     <div class="controls">
       <%= f.text_area :reason, :placeholder => 'Reason for blacklisting...', :rows => 8 %>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="pilot_known_alts">Known Alts:</label>
+    <div class="controls">
+      <%= f.text_area :known_alts, :placeholder => 'List any known alts...', :rows => 8 %>
     </div>
   </div>
   <div class="control-group">

@@ -5,7 +5,7 @@ class PilotsController < ApplicationController
 
   def index
     @pilots = if params[:q]
-      Pilot.where(['name ILIKE ?', "%%#{params[:q]}%%"])
+      Pilot.where(['name ILIKE ? OR known_alts ILIKE ?', "%%#{params[:q]}%%", "%%#{params[:q]}%%"])
     else
       Pilot.where('name IS NOT NULL')
     end

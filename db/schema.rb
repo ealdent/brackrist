@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927202755) do
+ActiveRecord::Schema.define(:version => 20121003193526) do
 
   create_table "alts", :force => true do |t|
     t.integer  "pilot_1_id", :null => false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20120927202755) do
     t.text     "reason"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.text     "known_alts"
   end
 
   add_index "pilots", ["corporation_id"], :name => "index_pilots_on_corporation_id"
